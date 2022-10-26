@@ -17,11 +17,13 @@ const TransactionHistory = ({ items }) => {
         </tr>
       </TransactionBoxHeader>
       <tbody>
-        {items.map(item => {
+        {items.map(({ type, amount, currency, id }) => {
           return (
             <TransactionHistoryItem
-              key={item.id}
-              transaction={item}
+              key={id}
+              amount={amount}
+              currency={currency}
+              type={type}
             ></TransactionHistoryItem>
           );
         })}
@@ -32,11 +34,13 @@ const TransactionHistory = ({ items }) => {
 
 export default TransactionHistory;
 
-TransactionHistory.prototype = {
-  items: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    amount: PropTypes.string.isRequired,
-    currency: PropTypes.string.isRequired,
-  }).isRequired,
+TransactionHistory.propType = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      amount: PropTypes.string.isRequired,
+      currency: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };

@@ -9,7 +9,7 @@ import {
 const Statistics = ({ stats, title }) => {
   return (
     <StatisticsBox>
-      <Title>{title}</Title>
+      {title && <Title>{title}</Title>}
       <StatList>
         {stats.map(stats => {
           return (
@@ -26,11 +26,13 @@ const Statistics = ({ stats, title }) => {
 
 export default Statistics;
 
-Statistics.prototype = {
+Statistics.propType = {
   title: PropTypes.string,
-  stats: PropTypes.shape({
-    id: PropTypes.string,
-    label: PropTypes.string,
-    percentage: PropTypes.number.isRequired,
-  }).isRequired,
+  stats: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      label: PropTypes.string,
+      percentage: PropTypes.number.isRequired,
+    })
+  ).isRequired,
 };
